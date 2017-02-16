@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.car.user.Dao.UserDao">
+
+	<cache eviction="FIFO" flushInterval="60000" size="500" readOnly="true"></cache>
+
+
+<!--  
+	<insert id="save" parameterType="SysUser" useGeneratedKeys="true" keyProperty="uId" flushCache="true">
+		insert into sys_user(uName, uAge) values(#{uName}, #{uAge})
+	</insert>
+	
+	<select id="selectById" parameterType="int" resultType="SysUser" useCache="false">
+	    select * from sys_user where uId=#{uId}
+	</select>
+	
+	<delete id="deleteById" parameterType="int" flushCache="true">
+	   DELETE from sys_user where uId=#{uId}
+	</delete>
+	
+	<select id="selectAll" resultType="SysUser">
+	    select * from sys_user
+	</select>-->
+	
+	 <select id="JudegUser" parameterType="userinfo"  resultType="userinfo">
+   select * FROM usertable WHERE 1=1
+                  and username=#{username} or qq=#{qq} or Sina=#{Sina}
+  </select>
+	
+	<insert id="RegistUserByQQ" parameterType="userinfo" useGeneratedKeys="true" keyProperty="id"  flushCache="true">
+	insert into usertable(qq,nickName,headImageUrl) values(#{qq},#{nickName},#{headImageUrl})
+	</insert>
+	
+	<insert id="RegisterByusername" parameterType="userinfo" useGeneratedKeys="true" keyProperty="id"  flushCache="true">
+	insert into usertable(username,passWord) values(#{username},#{passWord})
+	</insert>
+	
+	<insert id="RegistBySina" parameterType="userinfo" useGeneratedKeys="true" keyProperty="id"  flushCache="true">
+	insert into usertable(Sina,nickName,headImageUrl) values(#{Sina},#{nickName},#{headImageUrl})
+	</insert>
+	
+	<update id="ChangeLongloginflag" parameterType="java.util.Map" >
+	update usertable set loginflag=#{loginflag} where id=#{id};
+	</update>
+	
+	<update id="ChangePassWord" parameterType="userinfo">
+	update usertable set passWord=#{passWord} where id=#{id};
+	</update>
+	<update id="changeuserinfo" parameterType="userinfo">
+	update usertable set address=#{address}, birthday=#{birthday}, email=#{email},
+	 nickName=#{nickName}, phoneNumber=#{phoneNumber}, sex=#{sex} where id=#{id};
+	</update>
+	
+	
+</mapper> 
