@@ -4,6 +4,10 @@
 package com.car.user.contral;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,12 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import com.google.gson.Gson;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.car.user.model.userinfo;
 import com.car.user.service.userService;
+import sun.misc.BASE64Decoder;
 
 import net.sf.json.*;
 ;
@@ -248,6 +254,16 @@ public class userContral {
 	@RequestMapping(value="/car/ChangeQQ",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	   public String ChangeQQ(HttpServletRequest request)
 	   {
+		   userinfo u=new userinfo();
+		   u.setQq(request.getParameter("qq"));
+		   u.setId(Integer.parseInt(request.getParameter("id")));
+		   userinfo ut=new userinfo();
+		   ut=userservice.JudegUser(u);
+		   if(ut==null||ut.getId()==u.getId())
+		   {
+			   userservice.changeQQ(u);
+			   return "finsh";
+		   }  
 		return "error";   
 	   }
 	
@@ -259,6 +275,16 @@ public class userContral {
 	@RequestMapping(value="/car/ChangeSina",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	   public String ChangeSina(HttpServletRequest request)
 	   {
+		 userinfo u=new userinfo();
+		   u.setSina(request.getParameter("Sina"));
+		   u.setId(Integer.parseInt(request.getParameter("id")));
+		   userinfo ut=new userinfo();
+		   ut=userservice.JudegUser(u);
+		   if(ut==null||ut.getId()==u.getId())
+		   {
+			   userservice.changeSina(u);
+			   return "finsh";
+		   }  
 		return "error";   
 	   }
 	
@@ -266,10 +292,6 @@ public class userContral {
 	 * 用户信息修改，传入完整的用户信息对象，包括用户的id
 	 */
 	
-	/*
-	 * 退出登录，传入用户的id即可
-	 * 返回字符串标志finsh
-	 */
 	@ResponseBody
 	@RequestMapping(value="/car/Changeuserinfo",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	   public String Changeuserinfo(HttpServletRequest request)
@@ -287,12 +309,67 @@ public class userContral {
 		{
 			return "finsh";
 		}
-		
 		return "error";   
 	   }
-	
-	
-	
+	/*
+	 * 传过来一个用户对象必须包括的信息有 qq   或者 Sina   或者用户账号 和一个标志   
+	 *  额外传送字段flag  1代表是用用户名进行登陆的   2代表是qq登陆的  3代表是Sina登陆的 ，
+	 *  还有讲用户图片传送过来使用userIconContent进行标示
+	 */
+	@ResponseBody
+	@RequestMapping(value="/car/SetuserIcon",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
+	public String getusericon(HttpServletRequest request)
+	{
+		 String fileName="/";
+		 userinfo u=new userinfo();
+		 u.setId(Integer.parseInt(request.getParameter("id")));
+		 u.setQq(request.getParameter("qq"));
+		 u.setUsername(request.getParameter("username"));
+		 
+		 u.setSina(request.getParameter("Sina"));	 	
+		 System.out.println("--------"+u.getQq()+"---"+u.getUsername()+"---  "+u.getSina());
+		 userinfo ut=new userinfo();
+		 ut=userservice.JudegUser(u);
+		 System.out.println("------------------"+ut.getHeadImageUrl()+"-------------"+ut.getUsername());
+		 System.out.println("------------------"+request.getParameter("userIconContent"));
+		 //传过来的图片
+	     String icon=request.getParameter("userIconContent");	     
+	     String path=request.getSession().getServletContext().getRealPath("/img/usericon");	 
+	     
+	     String OldImageUrl=ut.getHeadImageUrl();	 
+	     //判断是什么方式进行登陆的
+	     if(request.getParameter("flag").equals("1"))
+	     {
+	    	 fileName=fileName+u.getUsername().trim()+".png";
+	    	 u.setHeadImageUrl(fileName);
+	     }
+	     if (request.getParameter("flag").equals("2")) {
+			  fileName=fileName+u.getQq().trim()+".png";
+			  u.setHeadImageUrl(fileName);
+		  }
+	     if (request.getParameter("flag").equals("3")) {
+	    	 fileName=fileName+u.getSina().trim()+".txt";
+	    	 u.setHeadImageUrl(fileName);
+		  }
+	     File img=new File(path+fileName);	
+	     //先删除原来的头像
+	     File file=new File(path+OldImageUrl);
+	        if(file.exists()){
+	            file.delete();
+	        }
+	        try {
+	            //再写入新头像
+	            byte [] user=new BASE64Decoder().decodeBuffer(icon);
+	            OutputStream os=new FileOutputStream(img);
+	            os.write(user,0,user.length);
+	            os.flush();
+	            os.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        userservice.SetuserIcon(u);        
+		return request.getSession().getServletContext().getRealPath("/img/usericon"+fileName);
+	}
 	
 	
 	 @ResponseBody

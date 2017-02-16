@@ -50,6 +50,14 @@
 	update usertable set address=#{address}, birthday=#{birthday}, email=#{email},
 	 nickName=#{nickName}, phoneNumber=#{phoneNumber}, sex=#{sex} where id=#{id};
 	</update>
+	<update id="SetuserIcon" parameterType="userinfo">
+	update usertable set headImageUrl=#{headImageUrl} where id=#{id};
+	</update>
+	<update id="changeQQ" parameterType="userinfo">
+	update usertable set qq=#{qq} where id=#{id};
+	</update>
 	
-	
+	<update id="changeSina" parameterType="userinfo">
+	update usertable set Sina=#{Sina} where id=#{id};
+	</update>
 </mapper> 

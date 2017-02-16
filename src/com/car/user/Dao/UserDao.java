@@ -55,4 +55,19 @@ public interface UserDao {
 	 */
 	public int changeuserinfo(userinfo u);
 
+	/**
+	 * @param u
+	 */
+	public void SetuserIcon(userinfo u);
+
+	/**
+	 * @param u
+	 */
+	public void changeQQ(userinfo u);
+
+	/**
+	 * @param u
+	 */
+	public void changeSina(userinfo u);
+
 }

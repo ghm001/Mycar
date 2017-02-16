@@ -78,5 +78,28 @@ public class userServiceImpl implements userService{
 	public int changeuserinfo(userinfo u) {
 		return userdao.changeuserinfo(u);
 	}
+	/* (non-Javadoc)
+	 * @see com.car.user.service.userService#SetuserIcon(com.car.user.model.userinfo)
+	 */
+	@Override
+	public void SetuserIcon(userinfo u) {
+	    userdao.SetuserIcon(u);
+	}
+	/* (non-Javadoc)
+	 * @see com.car.user.service.userService#changeQQ(com.car.user.model.userinfo)
+	 */
+	@Override
+	public void changeQQ(userinfo u) {
+	    userdao.changeQQ(u);
+		
+	}
+	/* (non-Javadoc)
+	 * @see com.car.user.service.userService#changeSina(com.car.user.model.userinfo)
+	 */
+	@Override
+	public void changeSina(userinfo u) {
+		userdao.changeSina(u);
+		
+	}
 
 }
