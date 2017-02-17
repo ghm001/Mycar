@@ -47,6 +47,8 @@ public class userContral {
 	@ResponseBody
 	@RequestMapping(value="/car/RegistByQQ",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	public String RegisterByQQ(HttpServletRequest request){
+		Map<String ,Object> map=new HashMap<String, Object>();
+		String json;
 		System.out.println("新增加注册用户");
 		int i=0;
 		userinfo u=new userinfo();
@@ -62,9 +64,13 @@ public class userContral {
 		System.out.println("-----------------------------");
 		System.out.println("用户的id为------------"+u.getId());
 		System.out.println("-----------------------------");
-		return u.getId()+"";
+		map.put("state", "success");
+		json=new Gson().toJson(map);
+		return json;
 		}else {
-			return "error";
+			map.put("state", "error");
+			json=new Gson().toJson(map);
+			return json;
 		}
 	}
 	/*
@@ -74,6 +80,8 @@ public class userContral {
 	@RequestMapping(value="/car/RegistUsername",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	public String RegisterByusername(HttpServletRequest request)
 	{
+		Map<String ,Object> map=new HashMap<String, Object>();
+		String json;
 		System.out.println("新增加注册用户");
 		int i=0;
 		userinfo u=new userinfo();
@@ -88,10 +96,13 @@ public class userContral {
 		System.out.println("-----------------------------");
 		System.out.println("用户的id为------------"+u.getId());
 		System.out.println("-----------------------------");
-		return u.getId()+"";
-		}
-		else {
-			return "error";
+		map.put("state", "success");
+		json=new Gson().toJson(map);
+		return json;
+		}else {
+			map.put("state", "error");
+			json=new Gson().toJson(map);
+			return json;
 		}
 	}
 	/*
@@ -101,6 +112,8 @@ public class userContral {
 	@RequestMapping(value="/car/RegistSina",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	public String RegistBySina(HttpServletRequest request)
 	{
+		Map<String ,Object> map=new HashMap<String, Object>();
+		String json;
 		System.out.println("新增加注册用户");
 		int i=0;
 		userinfo u=new userinfo();
@@ -116,11 +129,16 @@ public class userContral {
 		System.out.println("-----------------------------");
 		System.out.println("用户的id为------------"+u.getId());
 		System.out.println("-----------------------------");
-		return u.getId()+"";
+		map.put("state", "success");
+		json=new Gson().toJson(map);
+		return json;
 		}else {
-			return"error";
+			map.put("state", "error");
+			json=new Gson().toJson(map);
+			return json;
 		}
 	}
+	
 	/*
 	 * 通过用户账号密码进行登陆
 	 * 登陆后返回用户的信息
@@ -129,6 +147,8 @@ public class userContral {
 	@RequestMapping(value="/car/LoginByuser",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	public String LoginByusername(HttpServletRequest request)
 	{
+		Map<String, Object> map=new HashMap<String, Object>();
+		String json;
 		userinfo u=new userinfo();
 		Map<String,Integer> flag=new HashMap<String, Integer>();
 		u.setUsername(request.getParameter("username"));
@@ -143,11 +163,16 @@ public class userContral {
 			flag.put("loginflag", 1);
 			flag.put("id", ut.getId());
 			userservice.ChangeLongloginflag(flag);
-			return JSONObject.fromObject(ut).toString();
+			map.put("state", "success");
+			map.put("user", ut);
+			json=new Gson().toJson(map);
+			return json;
 		}
 		else {
-			u.setUsername("error");
-			return JSONObject.fromObject(u).toString();
+			map.put("state", "error");
+			map.put("user", ut);
+			json=new Gson().toJson(map);
+			return json;
 		}
 	}
 	/*
@@ -158,6 +183,8 @@ public class userContral {
 	@RequestMapping(value="/car/LoginByqq",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	public String LoginByqq(HttpServletRequest request)
 	{
+		Map<String, Object> map=new HashMap<String, Object>();
+		String json;
 		userinfo u=new userinfo();
 		Map<String,Integer> flag=new HashMap<String, Integer>();
 		u.setQq(request.getParameter("qq"));
@@ -170,16 +197,22 @@ public class userContral {
 		{/*
 		    这里有个弊端，返回的用户登陆状态为0，所以要在前端进行修改一下
 		*/
-			System.out.println("id为"+ut.getId()+"的用户使用账号密码进行登陆");
+			System.out.println("id为"+ut.getId()+"的用户使用qq进行登陆");
 			flag.put("loginflag", 1);
 			flag.put("id", ut.getId());
 			userservice.ChangeLongloginflag(flag);
-			return JSONObject.fromObject(ut).toString();
+			map.put("state", "success");
+			map.put("user", ut);
+			json=new Gson().toJson(map);
+			return json;
 		}
 		else {
-			u.setUsername("error");
-			return JSONObject.fromObject(u).toString();
+			map.put("state", "error");
+			map.put("user", ut);
+			json=new Gson().toJson(map);
+			return json;
 		}
+		
 	}
 	/*
 	 * 通过用户的Sina账号进行登陆
@@ -189,6 +222,8 @@ public class userContral {
 	@RequestMapping(value="/car/LoginBySina",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	public String LoginBySina(HttpServletRequest request)
 	{
+		Map<String, Object> map=new HashMap<String, Object>();
+		String json;
 		userinfo u=new userinfo();
 		Map<String,Integer> flag=new HashMap<String, Integer>();
 		u.setSina(request.getParameter("Sina"));
@@ -201,15 +236,20 @@ public class userContral {
 		{/*
 		    这里有个弊端，返回的用户登陆状态为0，所以要在前端进行修改一下
 		*/
-			System.out.println("id为"+ut.getId()+"的用户使用账号密码进行登陆");
+			System.out.println("id为"+ut.getId()+"的用户使用新浪进行登陆");
 			flag.put("loginflag", 1);
 			flag.put("id", ut.getId());
 			userservice.ChangeLongloginflag(flag);
-			return JSONObject.fromObject(ut).toString();
+			map.put("state", "success");
+			map.put("user", ut);
+			json=new Gson().toJson(map);
+			return json;
 		}
 		else {
-			u.setUsername("error");
-			return JSONObject.fromObject(u).toString();
+			map.put("state", "error");
+			map.put("user", ut);
+			json=new Gson().toJson(map);
+			return json;
 		}
 	}
 	
@@ -229,6 +269,8 @@ public class userContral {
 	@RequestMapping(value="/car/changePassWord",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	public String changePassWord(HttpServletRequest request)
 	{
+		Map<String, Object> map=new HashMap<String, Object>();
+		String json;
 		userinfo u=new userinfo();
 		Map<String,Integer> flag=new HashMap<String, Integer>();
 		u.setId(Integer.parseInt(request.getParameter("id")));
@@ -239,9 +281,13 @@ public class userContral {
 			flag.put("loginflag", 0);
 			flag.put("id", u.getId());
 			userservice.ChangeLongloginflag(flag);
-			return "finsh";
+			map.put("state", "success");
+			json=new Gson().toJson(map);
+			return json;
 		}
-		return"errpr";
+		map.put("state", "error");
+		json=new Gson().toJson(map);
+		return json;
 	}
 	
 	
@@ -254,6 +300,8 @@ public class userContral {
 	@RequestMapping(value="/car/ChangeQQ",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	   public String ChangeQQ(HttpServletRequest request)
 	   {
+		Map<String, Object> map=new HashMap<String, Object>();
+		String json;
 		   userinfo u=new userinfo();
 		   u.setQq(request.getParameter("qq"));
 		   u.setId(Integer.parseInt(request.getParameter("id")));
@@ -262,9 +310,13 @@ public class userContral {
 		   if(ut==null||ut.getId()==u.getId())
 		   {
 			   userservice.changeQQ(u);
-			   return "finsh";
-		   }  
-		return "error";   
+			   map.put("state", "success");
+				json=new Gson().toJson(map);
+				return json;
+			}
+			map.put("state", "error");
+			json=new Gson().toJson(map);
+			return json;   
 	   }
 	
 	/*
@@ -275,6 +327,8 @@ public class userContral {
 	@RequestMapping(value="/car/ChangeSina",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	   public String ChangeSina(HttpServletRequest request)
 	   {
+		Map<String, Object> map=new HashMap<String, Object>();
+		String json;
 		 userinfo u=new userinfo();
 		   u.setSina(request.getParameter("Sina"));
 		   u.setId(Integer.parseInt(request.getParameter("id")));
@@ -283,9 +337,13 @@ public class userContral {
 		   if(ut==null||ut.getId()==u.getId())
 		   {
 			   userservice.changeSina(u);
-			   return "finsh";
-		   }  
-		return "error";   
+			   map.put("state", "success");
+				json=new Gson().toJson(map);
+				return json;
+			}
+			map.put("state", "error");
+			json=new Gson().toJson(map);
+			return json;     
 	   }
 	
 	/*
@@ -296,20 +354,25 @@ public class userContral {
 	@RequestMapping(value="/car/Changeuserinfo",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	   public String Changeuserinfo(HttpServletRequest request)
 	   {
+		Map<String, Object> map=new HashMap<String, Object>();
+		String json;
 		userinfo u=new userinfo();
 		u.setAddress(request.getParameter("address"));
 		u.setBirthday(request.getParameter("birthday"));
 		u.setEmail(request.getParameter("email"));
 		u.setNickName(request.getParameter("nickName"));
-		u.setPhoneNumber(request.getParameter("phoneNumber"));
 		u.setSex(request.getParameter("sex"));
 		u.setId(Integer.parseInt(request.getParameter("id")));
 		int num=userservice.changeuserinfo(u);
 		if(num!=0)
 		{
-			return "finsh";
-		}
-		return "error";   
+			 map.put("state", "success");
+				json=new Gson().toJson(map);
+				return json;
+			}
+			map.put("state", "error");
+			json=new Gson().toJson(map);
+			return json;  
 	   }
 	/*
 	 * 传过来一个用户对象必须包括的信息有 qq   或者 Sina   或者用户账号 和一个标志   
@@ -320,6 +383,8 @@ public class userContral {
 	@RequestMapping(value="/car/SetuserIcon",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	public String getusericon(HttpServletRequest request)
 	{
+		Map<String, Object> map=new HashMap<String, Object>();
+		String json;
 		 String fileName="/";
 		 userinfo u=new userinfo();
 		 u.setId(Integer.parseInt(request.getParameter("id")));
@@ -367,8 +432,10 @@ public class userContral {
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
-	        userservice.SetuserIcon(u);        
-		return request.getSession().getServletContext().getRealPath("/img/usericon"+fileName);
+	        userservice.SetuserIcon(u); 
+	        map.put("url", request.getSession().getServletContext().getRealPath("/img/usericon"+fileName));
+	       json=new Gson().toJson(map);
+		return json;
 	}
 	
 	

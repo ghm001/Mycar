@@ -48,7 +48,7 @@
 	</update>
 	<update id="changeuserinfo" parameterType="userinfo">
 	update usertable set address=#{address}, birthday=#{birthday}, email=#{email},
-	 nickName=#{nickName}, phoneNumber=#{phoneNumber}, sex=#{sex} where id=#{id};
+	 nickName=#{nickName}}, sex=#{sex} where id=#{id};
 	</update>
 	<update id="SetuserIcon" parameterType="userinfo">
 	update usertable set headImageUrl=#{headImageUrl} where id=#{id};
