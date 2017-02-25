@@ -28,7 +28,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <!-- 自动扫描model目录, 省掉Configuration.xml里的手工配置 -->
-        <property name="typeAliasesPackage" value="com.car.user.model;" /> <!-- 多个路径用分号隔开 -->
+        <property name="typeAliasesPackage" value="com.car.user.model;com.car.car.model;com.car.say.model;" /> <!-- 多个路径用分号隔开 -->
         <!--这个配置如果显得麻烦还可以在Configuration中进行手动配置别名  -->
         <!-- 显式指定Mapper文件位置 -->
         <property name="mapperLocations" value="classpath*:/com/car/**/Dao/*Mapper.xml" />

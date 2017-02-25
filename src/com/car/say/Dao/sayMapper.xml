@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.car.say.Dao.sysDao">
+
+	<cache eviction="FIFO" flushInterval="60000" size="500" readOnly="true"></cache>
+
+
+
+ <insert id="setSaying" parameterType="cars" useGeneratedKeys="true" keyProperty="id"  flushCache="true" >
+    insert into say(userid,url2,url3,url4,url5,url1,url6,time,description)
+    values(#{userid},#{url2},#{url3},#{url4},#{url5},#{url1},#{url6},#{time},#{description})
+    </insert>
+   
+    <select id="getSaying" resultType="saying" >
+        select * from car  order by id desc limit 3 
+    </select>
+</mapper> 

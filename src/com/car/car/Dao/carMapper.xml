@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.car.car.Dao.carDao">
+
+	<cache eviction="FIFO" flushInterval="60000" size="500" readOnly="true"></cache>
+
+
+    <select id="getAllCar" resultType="cars" parameterType="int">
+        select * from car where nickNameid=#{nickNameid} order by carId desc 
+    </select>
+    
+    <delete id="deletedOne" parameterType="int">
+        delete from car where id=#{id}
+    </delete>
+    <insert id="addOne" parameterType="cars" useGeneratedKeys="true" keyProperty="id"  flushCache="true" >
+    insert into car(carId,carNumber,carIconUrl,carFrameNum,carEngineNum,time,carBrand,carSpecificModel,nickNameid)
+    values(#{carId},#{carNumber},#{carIconUrl},#{carFrameNum},#{carEngineNum},#{time},#{carBrand},#{carSpecificModel},#{nickNameid})
+    </insert>
+    <update id="changeone"  parameterType="cars">
+    update car set carNumber=#{carNumber},carIconUrl=#{carIconUrl},carFrameNum=#{carFrameNum},carEngineNum=#{carEngineNum},time=#{time},
+    carBrand=#{carBrand},carSpecificModel=#{carSpecificModel} where id=#{id}
+    </update>
+    
+	
+</mapper> 
