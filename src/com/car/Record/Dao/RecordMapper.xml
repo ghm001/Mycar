@@ -4,8 +4,18 @@
 
 	<cache eviction="FIFO" flushInterval="60000" size="500" readOnly="true"></cache>
 
-
+    <insert id="setsurence" parameterType="recoed" useGeneratedKeys="true" keyProperty="id"  flushCache="true">
+    insert into recoed(userId,cumType,cumTime,cumMoney) values(#{userId},#{cumType},#{cumTime},#{cumMoney})
+    </insert>
     
+	<update id="addmoney"  parameterType="Assest">
+    update assest set carInsurance=carInsurance + #{carInsurance} where userId=#{userId}
+    </update>
     
-	
+    <select id="getallRecord" resultType="recoed" parameterType="int">
+    select * from recoed where userId=#{userId}
+    </select>
+    <delete id="deleteOne" parameterType="int">
+    delete from recoed where id=#{id}
+    </delete>
 </mapper> 

@@ -64,6 +64,7 @@ public class userContral {
 		System.out.println("-----------------------------");
 		System.out.println("用户的id为------------"+u.getId());
 		System.out.println("-----------------------------");
+		userservice.changeAssest(u.getId());
 		map.put("state", "success");
 		json=new Gson().toJson(map);
 		return json;
@@ -93,6 +94,7 @@ public class userContral {
 		if(userservice.JudegUser(u)==null)
 		{
 		userservice.RegisterByusername(u);
+		userservice.changeAssest(u.getId());
 		System.out.println("-----------------------------");
 		System.out.println("用户的id为------------"+u.getId());
 		System.out.println("-----------------------------");
@@ -126,6 +128,7 @@ public class userContral {
 		if(userservice.JudegUser(u)==null)
 		{
 		userservice.RegistBySina(u);
+		userservice.changeAssest(u.getId());
 		System.out.println("-----------------------------");
 		System.out.println("用户的id为------------"+u.getId());
 		System.out.println("-----------------------------");
@@ -439,6 +442,16 @@ public class userContral {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	 @ResponseBody
 	@RequestMapping(value="/getJson",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/plain;charset=UTF-8")
 	public String getUserInfo(){
@@ -468,5 +481,9 @@ public class userContral {
 		return json;
 	}
 	
+	 
+	 
+	 
+	 
 	}
 	

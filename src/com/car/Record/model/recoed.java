@@ -12,9 +12,9 @@ public class recoed {
 private int id;
 private int userId;
 //消费类型
-private int cumType;
+private String cumType;
 //消费金额
-private int cumTime;
+private String cumTime;
 //消费时间
 private int cumMoney;
 /**
@@ -24,13 +24,19 @@ private int cumMoney;
  * @param cumTime
  * @param cumMoney
  */
-public recoed(int id, int userId, int cumType, int cumTime, int cumMoney) {
+public recoed(int id, int userId, String cumType, String cumTime, int cumMoney) {
 	super();
 	this.id = id;
 	this.userId = userId;
 	this.cumType = cumType;
 	this.cumTime = cumTime;
 	this.cumMoney = cumMoney;
+}
+/**
+ * 
+ */
+public recoed() {
+	// TODO Auto-generated constructor stub
 }
 public int getId() {
 	return id;
@@ -44,16 +50,16 @@ public int getUserId() {
 public void setUserId(int userId) {
 	this.userId = userId;
 }
-public int getCumType() {
+public String getCumType() {
 	return cumType;
 }
-public void setCumType(int cumType) {
+public void setCumType(String cumType) {
 	this.cumType = cumType;
 }
-public int getCumTime() {
+public String getCumTime() {
 	return cumTime;
 }
-public void setCumTime(int cumTime) {
+public void setCumTime(String cumTime) {
 	this.cumTime = cumTime;
 }
 public int getCumMoney() {
@@ -62,4 +68,8 @@ public int getCumMoney() {
 public void setCumMoney(int cumMoney) {
 	this.cumMoney = cumMoney;
 }
+
+
+
+
 }

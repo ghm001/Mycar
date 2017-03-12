@@ -4,8 +4,26 @@
 
 	<cache eviction="FIFO" flushInterval="60000" size="500" readOnly="true"></cache>
 
-
     
-    
+    <insert id="addOne" parameterType="repair" useGeneratedKeys="true" keyProperty="id" flushCache="true">
+    insert into repair(userId,orderState,shopIconUrl,shopName,shopAddress,shopType,orderTime,money)
+    values(#{userId},1,#{shopIconUrl},#{shopName},#{shopAddress},#{shopType},#{orderTime},#{money})
+    </insert>
 	
+	 <select id="getall" resultType="repair" parameterType="int">
+        select * from repair where userId=#{id}
+    </select>
+    
+     <delete id="deleteOne" parameterType="int">
+        delete from repair where id=#{id}
+    </delete>
+    <update id="changestate"  parameterType="int">
+    update repair set orderState=2 rwhere id=#{id}
+    </update>
+    <insert id="addReoair" parameterType="recoed" useGeneratedKeys="true" keyProperty="id" flushCache="true">
+    insert into recoed (userId,cumType,cumTime,cumMoney)values(#{userId},#{cumType},#{cumTime},#{cumMoney})
+    </insert>
+   <update id="addmoney"  parameterType="Assest">
+    update assest set carRepair=carRepair + #{carRepair} where userId=#{userId}
+    </update>
 </mapper> 

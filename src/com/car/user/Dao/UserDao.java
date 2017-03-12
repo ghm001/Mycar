@@ -70,4 +70,9 @@ public interface UserDao {
 	 */
 	public void changeSina(userinfo u);
 
+	/**
+	 * @param id
+	 */
+	public void changeAssest(int id);
+
 }

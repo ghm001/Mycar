@@ -101,5 +101,13 @@ public class userServiceImpl implements userService{
 		userdao.changeSina(u);
 		
 	}
+	/* (non-Javadoc)
+	 * @see com.car.user.service.userService#changeAssest(int)
+	 */
+	@Override
+	public void changeAssest(int id) {
+		userdao.changeAssest(id);
+		
+	}
 
 }

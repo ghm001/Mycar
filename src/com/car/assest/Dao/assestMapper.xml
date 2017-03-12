@@ -3,6 +3,8 @@
 <mapper namespace="com.car.assest.Dao.assestDao">
 
 	<cache eviction="FIFO" flushInterval="60000" size="500" readOnly="true"></cache>
-    
+    <select id="getall" resultType="Assest" parameterType="int">
+     select * from assest where userId=#{userId}  
+    </select>
 	
 </mapper> 

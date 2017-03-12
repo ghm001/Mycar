@@ -60,4 +60,9 @@
 	<update id="changeSina" parameterType="userinfo">
 	update usertable set Sina=#{Sina} where id=#{id};
 	</update>
+	
+	<insert id="changeAssest" parameterType="int" useGeneratedKeys="true" keyProperty="id"  flushCache="true">
+	insert into assest (userId,carRepair,carMaintain,carInsurance,allmoney,shopping) values{#{id},0,0,0,0,0};
+	</insert>
+	
 </mapper> 

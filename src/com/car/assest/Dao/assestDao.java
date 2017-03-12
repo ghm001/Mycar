@@ -3,8 +3,11 @@
  */
 package com.car.assest.Dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
+import com.car.assest.model.Assest;
 import com.car.utils.annotation.mybatis.MyBatisScan;
 
 /**
@@ -14,5 +17,11 @@ import com.car.utils.annotation.mybatis.MyBatisScan;
 @MyBatisScan
 @Repository
 public interface assestDao {
+
+	/**
+	 * @param userId
+	 * @return
+	 */
+	Assest getall(int userId);
 
 }

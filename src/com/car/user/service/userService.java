@@ -65,4 +65,9 @@ public interface userService {
 	 */
 	public void changeSina(userinfo u);
 
+	/**
+	 * @param id
+	 */
+	public void changeAssest(int id);
+
 }
